@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EIDIKO — AI Knowledge Assistant</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <img src="{{ url_for('static', filename='logo.jpg') }}"
+             alt="EIDIKO"
+             class="brand-logo">
+
+        <div>
+          <div class="brand-name">EIDIKO</div>
+          <div class="brand-subtitle">AI Knowledge Assistant</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section-title">
+        MENU
+      </div>
+
+      <nav class="sidebar-menu">
+
+        <button class="menu-item active" data-section="chat">
+          <i class="fa-regular fa-comment-dots"></i>
+          <span>Chat</span>
+        </button>
+
+        <button class="menu-item" data-section="gmail">
+          <i class="fa-regular fa-envelope"></i>
+          <span>Gmail Search</span>
+        </button>
+
+        <button class="menu-item" data-section="drive">
+          <i class="fa-brands fa-google-drive"></i>
+          <span>Drive Search</span>
+        </button>
+
+        <button class="menu-item" data-section="sheets">
+          <i class="fa-solid fa-table-cells"></i>
+          <span>Sheets Search</span>
+        </button>
+
+        <button class="menu-item" data-section="calendar">
+          <i class="fa-regular fa-calendar"></i>
+          <span>Calendar</span>
+        </button>
+
+        <button class="menu-item" data-section="meet">
+          <i class="fa-solid fa-video"></i>
+          <span>Meet</span>
+        </button>
+
+        <button class="menu-item" data-section="attachments">
+          <i class="fa-solid fa-paperclip"></i>
+          <span>Attachments</span>
+        </button>
+
+        <button class="menu-item" data-section="history">
+          <i class="fa-regular fa-clock"></i>
+          <span>History</span>
+        </button>
+
+        <button class="menu-item" data-section="settings">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </button>
+
+      </nav>
+
+      <!-- Google account -->
+      <div class="account-card">
+
+        <div class="account-title">
+          CONNECTED ACCOUNT
+        </div>
+
+        <div class="account-row">
+
+          <div class="google-icon">
+            <i class="fa-brands fa-google"></i>
+          </div>
+
+          <div class="account-details">
+            <div id="account-email">
+              Google Account
+            </div>
+
+            <div class="account-status">
+              <span class="status-dot"></span>
+              <span id="account-status-text">Checking...</span>
+            </div>
+          </div>
+
+        </div>
+
+        <button id="disconnect-btn" class="disconnect-btn" disabled>
+          <i class="fa-solid fa-power-off"></i>
+          Disconnect Google
+        </button>
+
+      </div>
+
+      <!-- Tips -->
+      <div class="tips-card">
+
+        <div class="tips-title">
+          TIPS
+        </div>
+
+        <div class="tip">
+          <i class="fa-regular fa-comment"></i>
+          <span>Ask naturally in your own words.</span>
+        </div>
+
+        <div class="tip">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>I will search your emails & files.</span>
+        </div>
+
+        <div class="tip">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Sensitive data is protected.</span>
+        </div>
+
+        <div class="tip">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>AI-powered document discovery.</span>
+        </div>
+
+      </div>
+
+      <div class="sidebar-footer">
+
+        <div class="footer-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <div>
+          <div class="footer-title">EIDIKO v1.0</div>
+          <div class="footer-subtitle">
+            Secure · Private · Intelligent
+          </div>
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+    <section class="main-area">
+
+      <!-- Top header -->
+      <header class="top-header">
+
+        <div>
+
+          <h1>
+            Hello <span id="user-name">there</span> 👋
+          </h1>
+
+          <p>
+            Ask anything — I'll search your Gmail, Drive & Sheets, check your Calendar and Meet links, and answer intelligently.
+          </p>
+
+        </div>
+
+        <div class="header-right">
+
+          <button id="connect-btn" class="connect-btn">
+            <i class="fa-brands fa-google"></i>
+            <span>Connect Google</span>
+          </button>
+
+          <div class="avatar">
+            A
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- Chat area -->
+      <main id="messages" class="chat-area">
+
+        <!-- Welcome card -->
+        <div class="welcome-card">
+
+          <div class="welcome-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+
+          <div>
+
+            <div class="welcome-title">
+              EIDIKO AI Assistant
+            </div>
+
+            <div class="welcome-description">
+              Search Gmail, Drive, Sheets, Calendar & Meet — get intelligent answers
+            </div>
+
+          </div>
+
+          <button id="clear-chat" class="clear-btn">
+            <i class="fa-regular fa-trash-can"></i>
+            Clear Chat
+          </button>
+
+        </div>
+
+
+        <!-- Initial bot message -->
+        <div class="message-row bot-row">
+
+          <div class="bot-avatar">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+
+          <div class="message bot-message">
+
+            <div class="message-text">
+              Hi! I'm your EIDIKO AI Knowledge Assistant.
+              Connect your Google account and ask me to find documents,
+              emails or attachments from Gmail, Drive and Sheets — or
+              check your Calendar events and Google Meet links.
+            </div>
+
+            <div class="suggestions">
+
+              <button class="suggestion">
+                <i class="fa-regular fa-id-card"></i>
+                Find my PAN card
+              </button>
+
+              <button class="suggestion">
+                <i class="fa-regular fa-file-lines"></i>
+                Find my documents
+              </button>
+
+              <button class="suggestion">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Find LangGraph files
+              </button>
+
+              <button class="suggestion">
+                <i class="fa-solid fa-table-cells"></i>
+                Find my sheets
+              </button>
+
+              <button class="suggestion">
+                <i class="fa-regular fa-calendar"></i>
+                What's on my calendar today
+              </button>
+
+              <button class="suggestion">
+                <i class="fa-solid fa-video"></i>
+                Find my Meet calls
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+
+
+      <!-- Security notice -->
+      <div class="security-notice">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <span>
+          Read-only access · Sensitive information is automatically protected
+        </span>
+
+      </div>
+
+
+      <!-- Input -->
+      <footer class="chat-footer">
+
+        <form id="chat-form" class="chat-form">
+
+          <button type="button"
+                  id="attachment-btn"
+                  class="icon-button"
+                  title="Attachments">
+            <i class="fa-solid fa-paperclip"></i>
+          </button>
+
+          <input
+            id="chat-input"
+            type="text"
+            autocomplete="off"
+            placeholder="Ask anything about your emails or documents..."
+          >
+
+          <button type="submit"
+                  id="send-btn"
+                  class="send-button"
+                  title="Send">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+          </button>
+
+        </form>
+
+        <div class="disclaimer">
+          EIDIKO AI can make mistakes. Please verify important information.
+        </div>
+
+      </footer>
+
+    </section>
+
+  </div>
+
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
