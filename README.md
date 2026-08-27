@@ -1,7 +1,11 @@
 # EIDIKO — Local Document Finder Chatbot
 
 A local chatbot that helps you find where a document lives in **your own**
-Gmail/Drive (e.g. "find my PAN card", "find my Aadhaar"). It returns
+Gmail,Drive ,Sheets, and Calendar(e.g. "find my PAN card", "find my Aadhaar", Find LangGraph files
+ Find my sheets,
+ What's on my calendar today,
+ Find my Meet calls
+). It returns
 **links and metadata only** — subject lines, filenames, dates — never the
 actual ID number, and it refuses password/PIN/OTP/secret-style queries
 outright.
@@ -101,11 +105,7 @@ then **Connect Google Account** again to re-consent with the new scope.
 | `redact.py` | Masks ID numbers/secrets in any text before it's shown or sent anywhere; blocks password-style queries |
 | `templates/index.html`, `static/*` | Chat UI with the EIDIKO logo |
 
-## Swapping in your real EIDIKO logo
 
-`static/logo.svg` is a placeholder mark I generated — replace it with your
-actual brand asset (same filename, or update the `<img src>` in
-`templates/index.html`).
 
 ## Local secrets — do not commit or share
 
